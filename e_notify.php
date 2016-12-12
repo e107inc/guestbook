@@ -2,7 +2,9 @@
 
 if (!defined('e107_INIT')) { exit; }
 if(e_LANGUAGE != "English" && file_exists(e_PLUGIN . "guestbook/languages/".e_LANGUAGE.".php"))
-{
+
+// OLD Gustbook notify
+/*{
 	include_once(e_PLUGIN."guestbook/languages/".e_LANGUAGE.".php");
 }
 else
@@ -20,6 +22,34 @@ if (!function_exists('notify_guestbookpost')) {
 		$message .= GB_LAN_NT_5.':<br />'.$data['gmessage'].'<br /><br />';
 		$nt -> send('guestbookpost', GB_LAN_NT_6, $message);
 	}
+}*/
+
+// v2.x Standard 
+//class guestbook_notify extends notify // plugin-folder + '_notify' 
+{		
+	function config()
+	{
+		
+		$config = array();
+	
+		$config[] = array(
+			'name'			=> GB_LAN_NT_2, //  "Message posted"
+			'function'		=> "guestbookpost",
+			'category'		=> 'GB_LAN_NT_1'
+		);	
+		
+		return $config;
+	}
+	
+	function guestbookpost($data) 
+	{
+	
+		$message = GB_LAN_NT_3.': '.USERNAME.' ('.LAN_IP.': '.e107::getIPHandler()->ipDecode($data['ip']).' )<br />';
+		$message .= GB_LAN_NT_5.':<br />'.$data['gmessage'].'<br /><br />';
+		
+		$this->send('guestbookpost', GB_LAN_NT_6, $message);
+	}
+	
 }
 
 ?>
