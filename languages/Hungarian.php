@@ -35,9 +35,8 @@
   |        $Author: Yesszus $
   +---------------------------------------------------------------+
 */
-
 define("GB_LAN_SIGN","Írás a Vendégkönyvbe");
-define("GB_LAN_NOTICE","- HTML nem engedélyezett!<br />- Email cím nem publikus.<br />- 10 perc áll a rendelkezésére a bejegyzés módosítására.");
+define("GB_LAN_NOTICE","- A HTML nem engedélyezett!<br />- Az Email cím nem publikus.<br />- 10 perc áll a rendelkezésére a bejegyzés módosítására.");
 define("GB_LAN_NAME","Név");
 define("GB_LAN_EMAIL","Email");
 define("GB_LAN_WEBSITE","Weboldal");
@@ -75,12 +74,12 @@ define("GB_LAN_ADM_9", "Blokkolás");
 define("GB_LAN_ADM_10",	"Bejegyzések száma per oldal");
 define("GB_LAN_ADM_11",	"Vendégkönyv Címe");
 define("GB_LAN_ADM_12",	"Oldal stilus hozzárendelése");
-define("GB_LAN_ADM_13",	"A BBCode és eszköztár engedélyezése");
-define("GB_LAN_ADM_14",	"ismétlődő bejegyzések blokkolása");
-define("GB_LAN_ADM_15",	"A linkek nem engedélyezettek a bejegyzésekben");
+define("GB_LAN_ADM_13",	"BB kódok és eszköztár engedélyezése");
+define("GB_LAN_ADM_14",	"Ismétlődő bejegyzések blokkolása");
+define("GB_LAN_ADM_15",	"Linkek tiltása a bejegyzésekben");
 define("GB_LAN_ADM_16",	"Csak a felhasználók láthatják a weboldalakat");
 define("GB_LAN_ADM_17",	"Opciók frissítése ");
-define("GB_LAN_ADM_18",	"Az opciók frissítve");
+define("GB_LAN_ADM_18",	"Az opciók frissítve!");
 define("GB_LAN_ADM_19", "Biztonsági Kép Kód Ellenőrzés engedélyezése");
 define("GB_LAN_ADM_20",	"Vendégkönyv bejegyzések");
 define("GB_LAN_ADM_21",	"Új vendégkönyv bejegyzések");
