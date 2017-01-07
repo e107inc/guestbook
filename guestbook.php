@@ -9,19 +9,19 @@
   |	GNU General Public License Version 2 (http://gnu.org).
   |
   +---------------------------------------------------------------+
-  | original: ©Andrew Rockwell 2003
+  | original: ï¿½Andrew Rockwell 2003
   |	      http://2sdw.com
   |           chavo@2sdw.com
   +---------------------------------------------------------------+
-  | updates:  ©Richard Perry 2005
+  | updates:  ï¿½Richard Perry 2005
   |           http://www.greycube.com
   |           code@greycube.com
   +---------------------------------------------------------------+
-  | updates:  ©Titanik 2007
+  | updates:  ï¿½Titanik 2007
   |          http://upc.utc.sk
   |           tomasss@inmail.sk
   +---------------------------------------------------------------+
-  | updates:  ©Smarti October 2007
+  | updates:  ï¿½Smarti October 2007
   |          http://www.platinwebservice.de
   |           webmaster@platinwebservice.de
   +---------------------------------------------------------------+
@@ -129,7 +129,7 @@ if ($pref['guestbook_bbcode'])
 	}
 }
 
-if ($_POST['guestbook_submit'])
+if (!empty($_POST['guestbook_submit']))
 {
 	if(USER)
     {
@@ -140,23 +140,31 @@ if ($_POST['guestbook_submit'])
 	$_POST['name']    = trim($_POST['name']);
 	$_POST['comment'] = trim($_POST['comment']);
 
+
+
 	if ($use_securecode)
 	{
 		$_POST['code_verify'] = trim($_POST['code_verify']);
 		if (!$_POST['name'] || !$_POST['comment'] || !$_POST['code_verify'])
 		{
-			message_handler("ALERT", 5);
+			// message_handler("ALERT", 5);
+			echo "fields left blank";
+			print_a($_POST);
 		}
 		if (!$sec_img->verify_code($_POST['rand_num'], $_POST['code_verify']))
 		{
-			message_handler("MESSAGE", GB_LAN_WRONGCODE."<br /><br />");header("refresh:6; url=guestbook.php", 10); require_once(FOOTERF); exit;
+
+			e107::getMessage()->addError("Invalid Code");
+
+			//message_handler("MESSAGE", GB_LAN_WRONGCODE."<br /><br />");header("refresh:6; url=guestbook.php", 10); require_once(FOOTERF); exit;
 		}
 	}
     else
 	{
 		if (!$_POST['name'] || !$_POST['comment'])
 		{
-			message_handler("ALERT", 5);
+			// message_handler("ALERT", 5);
+			echo "Fields left blank";
 		}
 	}
 	$fp = new floodprotect;
@@ -166,12 +174,14 @@ if ($_POST['guestbook_submit'])
 	}
 	if($pref['guestbook_repeat'] && $sql -> db_Select("guestbook", "*", "host='$host'"))
 	{
-		message_handler("MESSAGE", GB_LAN_REPEAT."<br /><br /><a href='javascript:history.go(-1)'>".GB_LAN_GOBACK."</a>"); require_once(FOOTERF); exit;
+		e107::getMessage()->addError(GB_LAN_REPEAT);
+		// message_handler("MESSAGE", GB_LAN_REPEAT."<br /><br /><a href='javascript:history.go(-1)'>".GB_LAN_GOBACK."</a>"); require_once(FOOTERF); exit;
 	}
 
 	if (strlen($_POST['comment']) > strlen(strip_tags($_POST['comment'])))
 	{
-		message_handler("MESSAGE", GB_LAN_NOHTML."<br /><br /><a href='javascript:history.go(-1)'>".GB_LAN_GOBACK."</a>"); require_once(FOOTERF); exit;
+		e107::getMessage()->addError(GB_LAN_NOHTML);
+		//message_handler("MESSAGE", GB_LAN_NOHTML."<br /><br /><a href='javascript:history.go(-1)'>".GB_LAN_GOBACK."</a>"); require_once(FOOTERF); exit;
 	}
 	
     $_POST['name']    = substr(strip_tags($_POST['name']), 0, 50);
@@ -234,7 +244,7 @@ if ($action == "delete")
 		<br />
 		".GB_LAN_CONFIRM."<br />
 		<br />
-		<input type='submit' name='guestbook_delete' class='button' value='".GB_LAN_DELETE."' /><br />
+		<input type='submit' name='guestbook_delete' class='btn btn-default button' value='".GB_LAN_DELETE."' /><br />
 		<br />
 		</div>
 		</form>";
@@ -282,9 +292,9 @@ if ($action == "edit")
 else
 {
 	$text .="<div style='text-align:center'>
-			<span class='button' style='padding-left:10px;padding-right:10px;cursor:pointer' onclick=\"expandit('guestbook_sign')\">
+			<a class='e-expandit button btn btn-default' href='#guestbook_sign' style='padding-left:10px;padding-right:10px;cursor:pointer' >
 			".GB_LAN_SIGN."
-			</span>
+			</a>
 			<br />
 			<br />
 			</div>";
@@ -294,7 +304,7 @@ else
 }
 
 $text .="
-	<table style='width:98%' class='fborder'>
+	<table  class='table table-bordered fborder'>
 	<tr>
 		<td class='forumheader3' colspan='2'>".GB_LAN_NOTICE."</td>
 	</tr>";
@@ -350,10 +360,9 @@ if ($use_securecode)
 {
 $text .= "
 	<tr>
-		<td class='forumheader' colspan='2' style='text-align:center'>".GB_LAN_SECURE."
+		<td class='forumheader' colspan='2' style='text-align:center'>".$sec_img->renderLabel()."
 		<input type='hidden' name='rand_num' value='".$securecodeimg = $sec_img->random_number."'>
-		".$sec_img->r_image()." 
-		<input class='tbox' type='text' name='code_verify' size='15' maxlength='20'>
+		".$sec_img->renderInput()."
 		</td>
 	</tr>";
 }
@@ -361,7 +370,7 @@ $text .= "
 $text .= "
 	<tr>
 		<td class='forumheader' colspan='2' style='text-align:center'>
-		<input type='submit' name='".($action=="edit"?"guestbook_update":"guestbook_submit")."' class='button' value='".GB_LAN_SUBMIT."' />
+		<input type='submit' name='".($action=="edit"?"guestbook_update":"guestbook_submit")."' class='button btn btn-primary' value='".GB_LAN_SUBMIT."' />
 		</td>
 	</tr>
 	</table>
@@ -383,14 +392,14 @@ $text .= "
 
 $text.="<br />
 	<br />
-	<center>
+
 	<div style='text-align:center'>";
 	
 $entries_total = $sql->db_Count("guestbook","(*)", "WHERE block ='1' ");
 
 if (!$sql->db_Select("guestbook", "*", "block = 1 ORDER BY id $order LIMIT $from,$records"))
 {
-	$text .="<div style='text-align:center'><b>".GB_LAN_ADM_28."</b></div>";
+	$text .="<div style='text-align:center'><b>".GB_LAN_ADM_28."</b></div></div>";
 }
 else
 {

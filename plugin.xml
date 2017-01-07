@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Guestbook" lan="" version="5.0" date="2017-01-07" compatibility="2.0" installRequired="true" >
+	<author name="Multiple" url="https://e107.org" />
+	<summary lan="">Guestbook</summary>
+	<description lan="">Guestbook</description>
+	<keywords>
+		<word>enhancement</word>
+		<word>guestbook</word>
+		<word>guest</word>
+	</keywords>
+	<category>content</category>
+	<copyright></copyright>
+	<adminLinks>
+		<link url="admin_config.php" description="" icon="" iconSmall="" icon128="" primary="true" >LAN_CONFIGURE</link>
+	</adminLinks>
+	<pluginPrefs>
+		<pref name='posts'>10</pref>
+		<pref name='enclose'></pref>
+		<pref name='title'></pref>
+		<pref name='bbcode'></pref>
+		<pref name='repeat'></pref>
+		<pref name='nolinks'></pref>
+		<pref name='hideurl'></pref>
+		<pref name='securecode'></pref>
+		<pref name='edittime'></pref>
+		<pref name='moderator_class'></pref>
+	</pluginPrefs>
+</e107Plugin>

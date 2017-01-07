@@ -9,19 +9,19 @@
   |	GNU General Public License Version 2 (http://gnu.org).
   |
   +---------------------------------------------------------------+
-  | original: ©Andrew Rockwell 2003
+  | original: ï¿½Andrew Rockwell 2003
   |	      http://2sdw.com
   |           chavo@2sdw.com
   +---------------------------------------------------------------+
-  | updates:  ©Richard Perry 2005
+  | updates:  ï¿½Richard Perry 2005
   |           http://www.greycube.com
   |           code@greycube.com
   +---------------------------------------------------------------+
-  | updates:  ©Titanik 2007
+  | updates:  ï¿½Titanik 2007
   |          http://upc.utc.sk
   |           tomasss@inmail.sk
   +---------------------------------------------------------------+
-  | updates:  ©Smarti October 2007
+  | updates:  ï¿½Smarti October 2007
   |          http://www.platinwebservice.de
   |           webmaster@platinwebservice.de
   +---------------------------------------------------------------+
@@ -123,8 +123,9 @@ if (!isset($pref["guestbook_version"]) || $eplug_version < "4.0" || $eplug_versi
 
 
 global $sql;
-if($sql -> db_Update("guestbook", "block='1'"))
-  $eplug_upgrade_done   = GB_LAN_UPDONE;
+
+  //if($sql -> db_Update("guestbook", "block='1'"))
+  //  $eplug_upgrade_done   = GB_LAN_UPDONE;
 }
 
 //---------------------------------------------------------------------------------------------------------+
